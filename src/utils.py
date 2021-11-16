@@ -42,10 +42,9 @@ def save_and_get_time(filenames, loader, model, folder, device):
         with torch.no_grad():
             mask_pred = torch.sigmoid(model(x)[0]) # only extract class prob
             mask_pred = (mask_pred > 0.5).float() * 255.0 # threshold
-        end_time = time.time() - start_time
-        times.append(end_time)
+        times.append(time.time() - start_time)
         torchvision.utils.save_image(mask_pred, f"{folder}/{filenames[idx]}.png")
-        #print("%s.jpg => %f seconds" % (filenames[idx], end_time))
+        #print("%s.jpg => %f seconds" % (filenames[idx], times[-1]))
     data = {"Filenames": fn_extensions, "Time": times}
     df = pd.DataFrame(data)
     df.to_csv("times_per_pred.csv", index=False)
@@ -54,7 +53,7 @@ def save_and_get_time(filenames, loader, model, folder, device):
 
 def save_checkpoint(epoch, state, filename):
     print("Epoch %d => Saving checkpoint" % epoch)
-    torch.save(state, "/home/feliciaj/MediaEval/saved_models/"+filename)
+    torch.save(state, "/saved_models/"+filename)
 
 
 def check_scores(loader, model, device, criterion):

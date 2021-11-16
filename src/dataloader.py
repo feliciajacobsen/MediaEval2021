@@ -65,9 +65,9 @@ def move_images():
 
     Mask musth have equal filename as its corresponding image.
     """
-    data_set = KvasirSEGDataset("/home/feliciaj/data/MediaEval/development/images/", "/home/feliciaj/data/MediaEval/development/masks/", transform=None)
+    data_set = KvasirSEGDataset("/development/images/", "/development/masks/", transform=None)
 
-    base_path = "/home/feliciaj/data/MediaEval/development/"
+    base_path = "/development/"
 
     dirs = [
         base_path+"train/train_images/", 
@@ -111,11 +111,11 @@ def data_loaders(batch_size, train_transforms, val_transforms, num_workers, pin_
     Val transfomrs are also used on test data.
 
     """
-    train_img_dir = "/home/feliciaj/data/MediaEval/development/train/train_images"
-    train_mask_dir = "/home/feliciaj/data/MediaEval/development/train/train_masks"
-    val_img_dir = "/home/feliciaj/data/MediaEval/development/val/val_images"
-    val_mask_dir = "/home/feliciaj/data/MediaEval/development/val/val_masks"
-    test_img_dir = "/home/feliciaj/data/MediaEval/test/images/"
+    train_img_dir = "/development/train/train_images"
+    train_mask_dir = "/development/train/train_masks"
+    val_img_dir = "/development/val/val_images"
+    val_mask_dir = "/development/val/val_masks"
+    test_img_dir = "/test/images/"
 
     train_ds = KvasirSEGDataset(
         image_dir = train_img_dir,

@@ -66,9 +66,9 @@ def validate_ensembles():
 
     """
 
-    test_folder = "/home/feliciaj/MediaEval/ensembles/medico2021images"
-    pred_folder = "/home/feliciaj/MediaEval/ensembles/medico2021masks/" 
-    uncertainty_folder = "/home/feliciaj/MediaEval/ensembles/medico2021uncertainty" 
+    test_folder = "/medico2021test"
+    pred_folder = "/medico2021masks/" 
+    uncertainty_folder = "/medico2021uncertainty" 
     if not os.path.exists(pred_folder):
         os.makedirs(pred_folder)
     if not os.path.exists(uncertainty_folder):
@@ -102,7 +102,7 @@ def validate_ensembles():
     for i in range(ensemble_size):
         model_list.append(model)
     
-    main_path = "/home/feliciaj/MediaEval/saved_models/" # dir folder of saved models
+    main_path = "/saved_models/" # dir folder of saved models
     paths = os.listdir(main_path)[:ensemble_size] # list of elements in folder
 
     assert len(paths) == ensemble_size, "No. of folder elements does not match ensemble size"
@@ -125,19 +125,13 @@ def validate_ensembles():
             x = x.to(device=device).unsqueeze(0)
             prob, variance = model(x)
             variance = variance.cpu().detach().squeeze(0).squeeze(0)
-            #plt.imsave(f"{uncertainty_folder}/{filename}.png", variance, cmap="jet")
 
-            #img = Image.open(f"{test_folder}/{filename}.jpg", "r").convert("RGB")
-            #mask = Image.open(f"{pred_folder}{filename}.png", "r").convert("RGB")
-            #heatmap = Image.open(f"{uncertainty_folder}/{filename}.png", "r").convert("RGB")
-            
-        
-            #print(img.size, heatmap.size)
-            
-            #res = Image.blend(img, heatmap, alpha=0.2)
-            #plt.imsave(f"/home/feliciaj/MediaEval/ensembles/hei/{filename}.png", res)
-
+            # make heatmap of uncertanty of pred mask
+            plt.imsave(f"{uncertainty_folder}/{filename}.png", variance, cmap="jet")
+      
     model.train()
+    
+    # save .csv file with times and filename
     save_and_get_time(filenames, test_loader, model, pred_folder, device=device)
 
 

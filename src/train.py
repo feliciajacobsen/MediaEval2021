@@ -68,6 +68,7 @@ def train_and_validate():
     config["image_height"] = 256
     config["image_width"] = 256
     config["model_name"] = "unet"
+    config["model_no"] = 1
 
     # specify transforms on training set
     train_transforms = A.Compose([
@@ -142,7 +143,7 @@ def train_and_validate():
                 "loss": mean_val_loss
             }
             # change name of file and run in order to save more models
-            save_checkpoint(epoch, checkpoint, config["model_name"]+"_checkpoint_10.pt")
+            save_checkpoint(epoch, checkpoint, config["model_name"] + f"_checkpoint_{config["model_no"]}.pt")
 
         if scheduler is not None:
             scheduler.step(mean_val_loss)
