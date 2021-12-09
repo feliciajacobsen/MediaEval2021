@@ -1,6 +1,8 @@
 # MediaEval2021
 Source code, dockerimage, dockerfile to the MediaEval2021 Challenge of the subtask: Transparency Polyp Segmentation. This project was made using the PyTorch framework. Model weights (.pt-files) are not uploaded due to Github memory constraints. I used Deep Ensembles (https://arxiv.org/pdf/1612.01474v3.pdf) as the mehtod of predicting segmentation masks on polyps based on colonoscopy images of the GI tract, and to obtain uncertainty values of each prediction mask based on the variance of the different models in the ensemble. 
 
+The obtained uncertainty of the prediction masks are in the /medico2021uncertainty directory. 
+
 ## Sofware requirements
 All Python libraries are shown in requirements.txt.
 
